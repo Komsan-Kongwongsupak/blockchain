@@ -24,12 +24,27 @@ class BlockChain:
     def is_valid(self):
         data = self.get_data()
         if len(data) == 0:
+            print('The blockchain is valid.')
             return True
         else:
             if data[0].get_hash_prev() != '0':
+                print(f'The genesis block is invalid.')
+                print('------------------------------')
+                data[0].display()
+                print('------------------------------')
                 return False
             else:
                 for i in range(1, len(data)):
                     if data[i].get_hash_prev() != data[i - 1].get_hash_itself():
+                        print(f'The intermediate block is invalid.')
+                        print('------------------------------')
+                        data[i - 1].display()
+                        print('------------------------------')
+                        data[i].display()
+                        print('------------------------------')
+                        if i + 1 < len(data):
+                            data[i + 1].display()
+                            print('------------------------------')
                         return False
+                print('The blockchain is valid.')
                 return True

@@ -27,3 +27,8 @@ class Block:
         
     def get_hash_itself(self):
         return self.hash_itself
+    
+    def display(self):
+        print(f'previous hash: {self.get_hash_prev()}')
+        print(f'transactions: {self.get_transactions()}')
+        print(f'current hash: {self.get_hash_itself()}')
