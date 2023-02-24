@@ -1,11 +1,12 @@
 class Block:
 
     def __init__(self, hash_prev, transactions):
-        print('\nA new block is created.')
+        print('A new block is created.')
         self.hash_prev = hash_prev
         self.nonce = 0
         self.transactions = transactions
         self.hash_itself = self.generate_hash_itself()
+        self.validate()
         self.mine()
         
     def get_hash_prev(self):
@@ -16,7 +17,8 @@ class Block:
         hash_prev_prev = self.hash_prev
         self.hash_prev = hash_prev
         self.hash_itself = self.generate_hash_itself()
-        print(f'\nThe previous hash is modified from {hash_prev_prev} to {self.hash_prev}!\n')
+        self.validate()
+        print(f'The previous hash is modified from {hash_prev_prev} to {self.hash_prev}!')
     
     def get_nonce(self):
         return self.nonce
@@ -24,6 +26,7 @@ class Block:
     def set_nonce(self, nonce):
         self.nonce = nonce
         self.hash_itself = self.generate_hash_itself()
+        self.validate()
         
     def get_transactions(self):
         return self.transactions
@@ -33,7 +36,8 @@ class Block:
         transactions_prev = self.transactions
         self.transactions = transactions
         self.hash_itself = self.generate_hash_itself()
-        print(f'\nThe transactions are modified from {transactions_prev} to {self.transactions}!\n')
+        self.validate()
+        print(f'The transactions are modified from {transactions_prev} to {self.transactions}!')
         
     def generate_hash_itself(self):
         return abs(hash(str(self.get_hash_prev()) + str(self.get_nonce()) + ','.join(self.transactions)))
@@ -46,14 +50,19 @@ class Block:
         print(f'nonce: {self.get_nonce()}')
         print(f'transactions: {self.get_transactions()}')
         print(f'current hash: {self.get_hash_itself()}')
+        self.validate()
         print(f'This block is {"in" if not self.is_valid() else ""}valid.')
     
     def is_valid(self):
-        return str(self.get_hash_itself())[:4] == '1111'
+        return self.valid
+    
+    def validate(self):
+        self.valid = bool(str(self.get_hash_itself())[:4] == '1111')
     
     def mine(self):
         nonce = self.get_nonce()
         while not self.is_valid():
             nonce += 1
             self.set_nonce(nonce)
+            self.validate()
         print('This block is mined.')
