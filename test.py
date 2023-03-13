@@ -1,67 +1,13 @@
-from Blockchain import BlockChain
-from Block import Block
+from components.Transaction import Transaction
+from components.Token import Token
 
-'''
-Create, display, and validate the block.
-'''
-print('\n########## BLOCK ZONE ##########\n')
-a = Block(0, ['abc', 'def'])
+tr1 = Transaction(10, '11', '22')
+tr2 = Transaction(20, '33', '44')
+tr3 = Transaction(30, '55', '66')
+tr4 = Transaction(40, '77', '88')
 
-print('\nORIGINAL BLOCK')
-a.display()
-print()
+tk = Token(2)
+tk.update_nodes([tr1, tr2])
+tk.update_nodes([tr3, tr4])
 
-# a.set_hash_prev(123)
-# a.display()
-# print()
-# a.mine()
-# a.display()
-# print()
-
-# new_nonce = 123
-# a.set_nonce(new_nonce)
-# print(f'The nonce is modified from {a.get_nonce()} to {new_nonce}!')
-# a.display()
-# print()
-# a.mine()
-# a.display()
-# print()
-
-# a.set_transactions(['ace', 'zyx'])
-# a.display()
-# print()
-# a.mine()
-# a.display()
-# print()
-
-'''
-Create, display, and validate the blockchain.
-'''
-print('########## BLOCKCHAIN ZONE ##########\n')
-xyz = BlockChain()
-print()
-xyz.append_block(['abc', 'def'])
-print()
-xyz.append_block(['ghi', 'jkl'])
-print()
-xyz.append_block(['mno', 'pqr'])
-print()
-xyz.append_block(['stu', 'vwx'])
-
-print('\nORIGINAL BLOCKCHAIN')
-xyz.display()
-print()
-
-# xyz.delete_block(1)
-# print()
-# xyz.display()
-# print()
-
-# xyz.data[2].set_transactions(['ace', 'zyx'])
-# print()
-# xyz.display()
-# print()
-# xyz.data[2].mine()
-# print()
-# xyz.display()
-# print()
+print(tk)
