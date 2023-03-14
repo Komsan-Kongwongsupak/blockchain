@@ -15,6 +15,7 @@ class User(AdvancedComponent):
         self.__middlename = middlename
         self.__lastname = lastname
         self.generate_full_name()
+        self.__key = KeyPair()
     
     def get_firstname(self):
         return self.__firstname
@@ -45,9 +46,6 @@ class User(AdvancedComponent):
     
     def set_full_name(self, full_name):
         self.__full_name = full_name
-    
-    def generate_key(self):
-        self.__key = KeyPair()
     
     def get_key(self):
         return self.__key

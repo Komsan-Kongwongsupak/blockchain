@@ -19,9 +19,9 @@ class Transaction(AdvancedComponent):
         self.__money = money
         self.__sender_id = sender_id
         self.__receiver_id = receiver_id
-        self.generate_data()
-        self.generate_key()
-        self.generate_signature()
+        self.__data = (str(self.__datetime) + str(self.__money) + self.__sender_id + self.__receiver_id).encode()
+        self.__key = KeyPair()
+        self.__signature = self.__key.get_private_key().sign(self.__data)
         self.validate()
     
     def get_money(self):
@@ -42,26 +42,17 @@ class Transaction(AdvancedComponent):
     def set_receiver_id(self, receiver_id):
         self.__receiver_id = receiver_id
     
-    def generate_data(self):
-        self.__data = (str(self.__datetime) + str(self.__money) + self.__sender_id + self.__receiver_id).encode()
-    
     def get_data(self):
         return self.__data
     
     def set_data(self, data):
         self.__data = data
-    
-    def generate_key(self):
-        self.__key = KeyPair()
 
     def get_key(self):
         return self.__key
     
     def set_key(self, key):
         self.__key = key
-    
-    def generate_signature(self):
-        self.__signature = self.__key.get_private_key().sign(self.__data)
     
     def get_signature(self):
         return self.__signature
